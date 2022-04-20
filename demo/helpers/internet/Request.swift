@@ -11,15 +11,12 @@ import Alamofire
 class Request{
     
     
-    
-
-    
     func ask(url : String, completion : @escaping (Data?, String?) -> ()){
         
         do{
             let getRequest = try URLRequest(url: URL(string: url)!, method: .get)//tworzenie zapytania
             
-            AF.request(getRequest).responseJSON { (response) in
+            AF.request(getRequest).response { (response) in
                 switch (response.result){
                 case .success(_):
                     
@@ -47,7 +44,5 @@ class Request{
         }
     }
     
-//    func image(url : String) -> UIImage {
-//        <#function body#>
-//    }
+    
 }

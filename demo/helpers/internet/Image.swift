@@ -5,7 +5,7 @@
 //  Created by Michał Hęćka on 19/04/2022.
 //
 
-import Foundation
+import UIKit
 
 class Photo : Request{
     
@@ -19,6 +19,11 @@ class Photo : Request{
     
     struct PhotoList : Codable {
         var list : Array<PhotoData>
+        var error : String?
+    }
+    
+    struct PhotoImage{
+        var img : UIImage?
         var error : String?
     }
     
@@ -47,6 +52,31 @@ class Photo : Request{
             }
             
             completion(albums)
+        }
+    }
+    
+    func getImage(url : String, completion : @escaping (PhotoImage) -> ()) {
+        
+        
+        ask(url: url) { (optionalData, optionalError) in
+            
+            var photo = PhotoImage(img: nil, error: nil)
+            
+            if let error = optionalError{
+                photo.error = error
+                completion(photo)
+                return
+            }
+            
+            if let data = optionalData {
+                
+                photo.img = UIImage(data: data)
+            }
+            else{
+                photo.error = "problem przy pobieraniu zdjęcia"
+            }
+            
+            completion(photo)
         }
     }
 }

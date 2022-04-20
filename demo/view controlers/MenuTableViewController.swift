@@ -10,6 +10,9 @@ import UIKit
 class MenuTableViewController: UITableViewController {
     
     
+    
+    var albums : Array<Album.AlbumData> = []
+    var photos : Array<Photo.PhotoData> = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,26 +22,88 @@ class MenuTableViewController: UITableViewController {
         
         self.tableView.register(UINib(nibName: "PhotoViewCellRight", bundle: nil), forCellReuseIdentifier: "PhotoViewCellRight")
         self.tableView.register(UINib(nibName: "PhotoViewCellLeft", bundle: nil), forCellReuseIdentifier: "PhotoViewCellLeft")
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Album().getList(url: "https://jsonplaceholder.typicode.com/albums") { (_albums) in
+            
+            print(_albums)
+            
+            if let err = _albums.error{
+                print(err)
+            }
+            else{
+                self.albums = _albums.list
+            }
+            
+        }
+        
+        Photo().getList(url: "https://jsonplaceholder.typicode.com/photos") { (_photos) in
+            
+//            print(photos)
+            print(_photos.list.count)
+//            print(photos.list[0])
+            
+            if let err = _photos.error{
+                print(err)
+            }
+            else{
+                self.photos = _photos.list
+            }
+            self.tableView.reloadData()
+        }
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 1
+        return albums.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(photos.filter{ $0.albumId == section + 1 }.count)
         
-        return 2
+        return photos.filter{ $0.albumId == section + 1 }.count
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UITableViewHeaderFooterView()
+
+        let label = UILabel(frame: CGRect(x: 16, y: 0, width: tableView.frame.size.width, height: 28))
+        
+        label.text = albums[section].title
+        
+        header.addSubview(label)
+        header.bringSubviewToFront(label)
+        
+        return header
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoViewCellRight", for: indexPath) as! PhotoViewCellRight
         
-//        cell.titleView.text = "Test"
-
+        let indentifier = (indexPath.row) % 2 == 0 ? "PhotoViewCellRight" : "PhotoViewCellLeft"
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: indentifier, for: indexPath) as! PhotoViewCell
+        
+        
+        if let title = cell.titleView{
+            title.text = photos.filter{ $0.id == indexPath.row + 1 }[0].title
+        }
+        print(photos.filter{ $0.id == indexPath.row + 1 }[0].thumbnailUrl)
+         
+        if let photoView = cell.photoView{
+            photoView.image = nil
+            
+            Photo().getImage(url: photos.filter{ $0.id == indexPath.row + 1 }[0].thumbnailUrl, completion: { (photo) in
+                photoView.image = photo.img
+            })
+        }
          
 
         return cell
