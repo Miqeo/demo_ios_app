@@ -13,6 +13,7 @@ class MenuTableViewController: UITableViewController {
     
     var albums : Array<Album.AlbumData> = []
     var photos : Array<Photo.PhotoData> = []
+    var store = ImageStore(limit: 60)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,7 @@ class MenuTableViewController: UITableViewController {
         
         Album().getList(url: "https://jsonplaceholder.typicode.com/albums") { (_albums) in
             
-            print(_albums)
+//            print(_albums)
             
             if let err = _albums.error{
                 print(err)
@@ -44,9 +45,7 @@ class MenuTableViewController: UITableViewController {
         
         Photo().getList(url: "https://jsonplaceholder.typicode.com/photos") { (_photos) in
             
-//            print(photos)
             print(_photos.list.count)
-//            print(photos.list[0])
             
             if let err = _photos.error{
                 print(err)
@@ -66,7 +65,7 @@ class MenuTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(photos.filter{ $0.albumId == section + 1 }.count)
+//        print(photos.filter{ $0.albumId == section + 1 }.count)
         
         return photos.filter{ $0.albumId == section + 1 }.count
     }
@@ -87,22 +86,41 @@ class MenuTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let indentifier = (indexPath.row) % 2 == 0 ? "PhotoViewCellRight" : "PhotoViewCellLeft"
+        
+        let photoData = photos.filter{ $0.albumId == indexPath.section + 1 }[indexPath.row]
+        
+        let indentifier = (photoData.id) % 2 == 0 ? "PhotoViewCellLeft" : "PhotoViewCellRight" 
         
         let cell = tableView.dequeueReusableCell(withIdentifier: indentifier, for: indexPath) as! PhotoViewCell
         
         
+        
+        
         if let title = cell.titleView{
-            title.text = photos.filter{ $0.id == indexPath.row + 1 }[0].title
+            title.text = photoData.title
         }
-        print(photos.filter{ $0.id == indexPath.row + 1 }[0].thumbnailUrl)
+        
          
         if let photoView = cell.photoView{
             photoView.image = nil
             
-            Photo().getImage(url: photos.filter{ $0.id == indexPath.row + 1 }[0].thumbnailUrl, completion: { (photo) in
-                photoView.image = photo.img
-            })
+            print(photoData.id)
+            
+            if let image = store.images[photoData.id]{
+                photoView.image = image
+            }
+            else{
+                print(photoData.thumbnailUrl)
+                
+                Photo().getImage(url: photoData.thumbnailUrl, completion: { [self] (image) in
+                    photoView.image = image.img
+                    
+                    store.add(at: photoData.id, optionalImage: image.img)
+                    
+                })
+                
+            }
+            
         }
          
 
