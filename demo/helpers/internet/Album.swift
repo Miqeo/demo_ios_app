@@ -9,13 +9,13 @@ import Foundation
 
 class Album : Request{
     
-    struct AlbumData : Codable{
+    struct AlbumData : Codable{//data of particular album
         var userId : Int
         var id : Int
         var title : String
     }
     
-    struct AlbumList : Codable {
+    struct AlbumList : Codable {//place of albums data downloaded from json
         var list : Array<AlbumData>
         var error : String?
     }

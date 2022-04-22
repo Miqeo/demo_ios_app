@@ -8,41 +8,41 @@
 import Foundation
 import Alamofire
 
-class Request{
+class Request{//class responsible for communicating with outside world
     
     
     func ask(url : String, completion : @escaping (Data?, String?) -> ()){
         
         do{
-            let getRequest = try URLRequest(url: URL(string: url)!, method: .get)//tworzenie zapytania
+            let getRequest = try URLRequest(url: URL(string: url)!, method: .get)//generating get request
             
-            AF.request(getRequest).response { (response) in
+            AF.request(getRequest).response { [self] (response) in
                 switch (response.result){
-                case .success(_):
+                case .success(_)://when successful complete without error
                     
                     completion(response.data, nil)
                     break
-                case .failure(let err):
+                case .failure(let err)://when failure complete without data but with description of error
                     
-                    switch (err.responseCode) {
-                    case 404:
-                        completion(nil, "problem z połączeniem z bazą")
-                        break
-                    case 500:
-                        completion(nil, "problem po stronie użytkownika")
-                        break
-                    default:
-                        completion(nil, "problem z połączeniem")
-                    }
+                    completion(nil, errorControll(errCode: err.responseCode))
                     break
                 }
                 
             }
         }
-        catch{
+        catch{//when failure complete without data but with description of error
             completion(nil, "problem przy tworzeniu zapytania")
         }
     }
     
-    
+    func errorControll(errCode : Int?) -> String{//default responses to diffrent response codes including nil
+        switch (errCode) {
+        case 404:
+            return "problem z połączeniem z bazą"
+        case 500:
+            return "problem po stronie użytkownika"
+        default://general error description
+            return "problem z połączeniem"
+        }
+    }
 }

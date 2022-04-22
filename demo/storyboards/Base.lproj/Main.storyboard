@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Menu-->
         <scene sceneID="DpJ-5c-n52">
             <objects>
-                <tableViewController id="BFa-Rn-E0P" customClass="MenuTableViewController" customModule="demo" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="BFa-Rn-E0P" customClass="PhotoTableViewController" customModule="demo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Tm0-kh-4wm" customClass="Menu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,11 +22,50 @@
                             <outlet property="delegate" destination="BFa-Rn-E0P" id="cku-Lc-yt9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="wCg-8C-k6k"/>
+                    <navigationItem key="navigationItem" title="Menu" id="wCg-8C-k6k"/>
+                    <connections>
+                        <segue destination="46J-zd-z2J" kind="show" identifier="ShowImage" id="MPM-YY-tbt"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IDD-M2-88d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-936" y="104"/>
+        </scene>
+        <!--Web Image View Controller-->
+        <scene sceneID="ThQ-er-wYW">
+            <objects>
+                <viewController id="46J-zd-z2J" customClass="WebImageViewController" customModule="demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vj2-sY-xGM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qHg-6V-egj">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsPictureInPictureMediaPlayback="NO">
+                                    <dataDetectorTypes key="dataDetectorTypes" none="YES"/>
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences" javaScriptEnabled="NO"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vLY-1M-1ZM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vLY-1M-1ZM" firstAttribute="bottom" secondItem="qHg-6V-egj" secondAttribute="bottom" id="3VD-hw-wwn"/>
+                            <constraint firstItem="qHg-6V-egj" firstAttribute="leading" secondItem="vLY-1M-1ZM" secondAttribute="leading" id="3uY-rU-HHQ"/>
+                            <constraint firstItem="vLY-1M-1ZM" firstAttribute="trailing" secondItem="qHg-6V-egj" secondAttribute="trailing" id="4pv-CE-3rP"/>
+                            <constraint firstItem="qHg-6V-egj" firstAttribute="top" secondItem="vLY-1M-1ZM" secondAttribute="top" id="lYP-1D-C8U"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="wVN-O9-8zQ"/>
+                    <connections>
+                        <outlet property="webImageView" destination="qHg-6V-egj" id="rUW-pW-8bD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1gc-lr-wuo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-68" y="104"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jPO-Er-r2B">
@@ -43,37 +82,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YAm-dB-ps0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1826" y="104"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="demo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aes-tW-fv0">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="aes-tW-fv0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="76w-fC-lsh"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aes-tW-fv0" secondAttribute="bottom" id="GfM-QM-3SX"/>
-                            <constraint firstItem="aes-tW-fv0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IQM-Gm-3yn"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aes-tW-fv0" secondAttribute="trailing" id="qBe-fs-7tC"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-35" y="89"/>
         </scene>
     </scenes>
     <resources>

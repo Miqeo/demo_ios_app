@@ -7,9 +7,9 @@
 
 import UIKit
 
-class Photo : Request{
+class Photo : Request {
     
-    struct PhotoData : Codable{
+    struct PhotoData : Codable{//data of particular photo
         var albumId : Int
         var id : Int
         var title : String
@@ -17,12 +17,12 @@ class Photo : Request{
         var thumbnailUrl : String
     }
     
-    struct PhotoList : Codable {
+    struct PhotoList : Codable {//place of photos data downloaded from json
         var list : Array<PhotoData>
         var error : String?
     }
     
-    struct PhotoImage{
+    struct PhotoImage{//downloaded image
         var img : UIImage?
         var error : String?
     }
