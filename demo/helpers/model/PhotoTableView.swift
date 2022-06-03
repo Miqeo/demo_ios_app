@@ -60,19 +60,20 @@ class PhotoTableView : UITableViewController{
     }
     
     //value setter
-    func setup(completionSuccess : @escaping () -> (), completionFailure : @escaping (String) -> ()){
+    func setup(completion :  @escaping (String?) -> ()){
+        
         
         Album().getList(url: "https://jsonplaceholder.typicode.com/albums") { (_albums) in
-            
+
             if let err = _albums.error{
                 print(err)
-                completionFailure(err)
+                completion(err)
                 return
             }
             else{
                 self.albums = _albums.list
             }
-            
+
         }
         
         Photo().getList(url: "https://jsonplaceholder.typicode.com/photos") { (_photos) in
@@ -81,11 +82,11 @@ class PhotoTableView : UITableViewController{
             
             if let err = _photos.error{
                 print(err)
-                completionFailure(err)
+                completion(err)
             }
             else{
                 self.photos = _photos.list
-                completionSuccess()
+                completion(nil)
             }
             
         }

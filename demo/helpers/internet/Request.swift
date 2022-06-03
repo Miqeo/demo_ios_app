@@ -23,7 +23,7 @@ class Request{//class responsible for communicating with outside world
                     completion(response.data, nil)
                     break
                 case .failure(let err)://when failure complete without data but with description of error
-                    
+                    print(err)
                     completion(nil, errorControll(errCode: err.responseCode))
                     break
                 }

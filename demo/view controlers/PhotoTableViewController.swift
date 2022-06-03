@@ -9,7 +9,7 @@ import UIKit
 
 class PhotoTableViewController: PhotoTableView {//class responsible for look of photo table view
     
-//    let alert = Alert(view: self() as UIViewController)
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,37 +27,74 @@ class PhotoTableViewController: PhotoTableView {//class responsible for look of 
         self.refreshControl!.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         
         alert = Alert(view: self as UIViewController)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onReceiveData(_:)), name: Notification.Name("ReceiveData"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onReceivePosition(_:)), name: Notification.Name("ReceivePosition"), object: nil)
+        
         
         setupRecurse()
     }
     
-    @IBAction func refreshData(_ sender: Any){//pull down refresh method
-        setup {
-            self.tableView.reloadData()
-            self.refreshControl!.endRefreshing()
-        } completionFailure: { [self] (err) in
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("ReceiveData"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("ReceivePosition"), object: nil)
+    }
+    
+    @objc func onReceiveData(_ notification:Notification) {
+        print("aktualizacja danych")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.setupRecurse()
             
-            alert!.show(title: "Error", sub: err, actions: [
+        }
+        
+    }
+    
+    @objc func onReceivePosition(_ notification:Notification) {
+        
+        
+        if let indexPath = notification.object as? IndexPath {
+            print("pozycja \(indexPath)")
+            self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+            self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+        }
+        
+    }
+    
+    
+    @IBAction func refreshData(_ sender: Any){//pull down refresh method
+        
+        
+        setup { optionalError in
+            
+            guard let error = optionalError else {
+                self.tableView.reloadData()
+                self.refreshControl!.endRefreshing()
+                return
+            }
+            
+            self.alert!.show(title: "Error", sub: error, actions: [
                 UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             ])
             
-            refreshControl!.endRefreshing()
+            self.refreshControl!.endRefreshing()
         }
+        
+
         
         
     }
     
     func setupRecurse(){//recursively setup data when error occured
-        setup {
-            self.tableView.reloadData()
+        view.showLoading()
+        setup { optionalError in
+            self.view.removeLoading()
+            guard let error = optionalError else {
+                self.tableView.reloadData()
+                return
+            }
             
-        } completionFailure: { [self] (err) in
-            //alert with description of error
-            alert!.show(title: "Error", sub: err, actions: [
+            self.alert!.show(title: "Error", sub: error, actions: [
                 UIAlertAction(title: "Odśwież", style: .default, handler: { [self] (_) in
                     setupRecurse()
                 })

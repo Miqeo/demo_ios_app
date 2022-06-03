@@ -35,17 +35,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         
-        if (application.applicationState == .active) { return }
+//
         
-        if (application.applicationState == .background) {
-            completionHandler(.noData)
-            return
-        }
-            
         guard let aps = userInfo["aps"] as? [String : AnyObject] else {
             completionHandler(.failed)
             return
         }
+        
+        if aps["content-available"] as? Int == 1 {
+            NotificationCenter.default.post(name: Notification.Name("ReceiveData"), object: nil)
+//            NotificationCenter.default.post(name: Notification.Name("ReceivePosition"), object: IndexPath(row: aps["row"] as! Int, section: aps["sec"] as! Int))
+            completionHandler(.newData)
+            return
+        }
+        
+        if (application.applicationState == .background || application.applicationState == .active) {
+            completionHandler(.noData)
+            return
+        }
+            
         
         print("opened again from notification")
         
@@ -57,6 +65,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        }
         
         
+        
+        
         guard let name: String = aps["VC"] as? String else { completionHandler(.noData); return }
         
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -65,11 +75,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         var viewController = UIViewController()
         
         switch name {
+        case "c0":
+            NotificationCenter.default.post(name: Notification.Name("ReceivePosition"), object: IndexPath(row: aps["row"] as! Int, section: aps["sec"] as! Int))
+            completionHandler(.newData)
+            return
         case "c1":
             viewController = storyboard.instantiateViewController(withIdentifier: "web_image") as! WebImageViewController
             (viewController as! WebImageViewController).imageUrl = URL(string: aps["link_url"] as! String)
+            break
         case "c2":
-            viewController = storyboard.instantiateViewController(withIdentifier: "web_image") as! WebImageViewController
+            viewController = storyboard.instantiateViewController(withIdentifier: "demo")
+            break
         default:
             print("Nothing")
             return

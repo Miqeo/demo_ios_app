@@ -10,6 +10,8 @@
 		1606FC41018897B70BD3E0A6 /* Pods_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A3A41545A58068B99DDE91 /* Pods_demo.framework */; };
 		5D8774312848DAC700679243 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8774302848DAC700679243 /* Notifications.swift */; };
 		5D8774352849F26000679243 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8774342849F26000679243 /* WebKit.framework */; };
+		5DC1D4D8284A362000FBC4A8 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC1D4D7284A362000FBC4A8 /* Loading.swift */; };
+		5DC1D4DA284A36EE00FBC4A8 /* DesignControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC1D4D9284A36EE00FBC4A8 /* DesignControl.swift */; };
 		901648D92811A1BC0018FDE2 /* PhotoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901648D82811A1BC0018FDE2 /* PhotoTableView.swift */; };
 		901648E12811F9C50018FDE2 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901648E02811F9C50018FDE2 /* WebImageView.swift */; };
 		901648E72812E0780018FDE2 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901648E62812E0780018FDE2 /* ImageStore.swift */; };
@@ -34,6 +36,8 @@
 		5D8774302848DAC700679243 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		5D8774332848EBFB00679243 /* demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = demo.entitlements; sourceTree = "<group>"; };
 		5D8774342849F26000679243 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		5DC1D4D7284A362000FBC4A8 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		5DC1D4D9284A36EE00FBC4A8 /* DesignControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignControl.swift; sourceTree = "<group>"; };
 		778230EE47650F8D8F651B89 /* Pods-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo.debug.xcconfig"; path = "Target Support Files/Pods-demo/Pods-demo.debug.xcconfig"; sourceTree = "<group>"; };
 		901648D82811A1BC0018FDE2 /* PhotoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableView.swift; sourceTree = "<group>"; };
 		901648E02811F9C50018FDE2 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				901648EE2812EB8D0018FDE2 /* Alert.swift */,
+				5DC1D4D7284A362000FBC4A8 /* Loading.swift */,
 			);
 			path = alerts;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 				901648ED2812EB620018FDE2 /* alerts */,
 				9094CCCF2810383600ED386D /* model */,
 				9094CCCE2810382B00ED386D /* internet */,
+				5DC1D4D9284A36EE00FBC4A8 /* DesignControl.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -316,6 +322,7 @@
 				901648D92811A1BC0018FDE2 /* PhotoTableView.swift in Sources */,
 				9094CCAD280FE65000ED386D /* PhotoViewCell.swift in Sources */,
 				901648EA2812E0C50018FDE2 /* WebImageViewController.swift in Sources */,
+				5DC1D4DA284A36EE00FBC4A8 /* DesignControl.swift in Sources */,
 				9094CCA8280EFD2E00ED386D /* Photo.swift in Sources */,
 				901648E12811F9C50018FDE2 /* WebImageView.swift in Sources */,
 				5D8774312848DAC700679243 /* Notifications.swift in Sources */,
@@ -323,6 +330,7 @@
 				9094CC9E280EF26F00ED386D /* Request.swift in Sources */,
 				9094CC7F280EF10D00ED386D /* AppDelegate.swift in Sources */,
 				9094CC81280EF10D00ED386D /* SceneDelegate.swift in Sources */,
+				5DC1D4D8284A362000FBC4A8 /* Loading.swift in Sources */,
 				9094CCA5280EF53A00ED386D /* Album.swift in Sources */,
 				901648EF2812EB8D0018FDE2 /* Alert.swift in Sources */,
 				901648E72812E0780018FDE2 /* ImageStore.swift in Sources */,
