@@ -31,17 +31,18 @@ class Album : Request{
                 return
             }
             
-            if let data = optionalData {
-                
-                do{
-                    albums.list = try JSONDecoder().decode(Array<AlbumData>.self, from: data)
-                }
-                catch{
-                    albums.error = "problem przy parsowaniu albumu"
-                }
-            }
-            else{
+            guard let data = optionalData else {
                 albums.error = "problem przy pobieraniu albumu"
+                
+                completion(albums)
+                return
+            }
+            
+            do{
+                albums.list = try JSONDecoder().decode(Array<AlbumData>.self, from: data)
+            }
+            catch{
+                albums.error = "problem przy parsowaniu albumu"
             }
             
             completion(albums)

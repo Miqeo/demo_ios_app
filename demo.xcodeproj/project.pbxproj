@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1606FC41018897B70BD3E0A6 /* Pods_demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46A3A41545A58068B99DDE91 /* Pods_demo.framework */; };
+		5D8774312848DAC700679243 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8774302848DAC700679243 /* Notifications.swift */; };
+		5D8774352849F26000679243 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8774342849F26000679243 /* WebKit.framework */; };
 		901648D92811A1BC0018FDE2 /* PhotoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901648D82811A1BC0018FDE2 /* PhotoTableView.swift */; };
 		901648E12811F9C50018FDE2 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901648E02811F9C50018FDE2 /* WebImageView.swift */; };
 		901648E72812E0780018FDE2 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901648E62812E0780018FDE2 /* ImageStore.swift */; };
@@ -29,6 +31,9 @@
 
 /* Begin PBXFileReference section */
 		46A3A41545A58068B99DDE91 /* Pods_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D8774302848DAC700679243 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		5D8774332848EBFB00679243 /* demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = demo.entitlements; sourceTree = "<group>"; };
+		5D8774342849F26000679243 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		778230EE47650F8D8F651B89 /* Pods-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo.debug.xcconfig"; path = "Target Support Files/Pods-demo/Pods-demo.debug.xcconfig"; sourceTree = "<group>"; };
 		901648D82811A1BC0018FDE2 /* PhotoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableView.swift; sourceTree = "<group>"; };
 		901648E02811F9C50018FDE2 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
@@ -57,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8774352849F26000679243 /* WebKit.framework in Frameworks */,
 				1606FC41018897B70BD3E0A6 /* Pods_demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,6 +73,7 @@
 		2E1D053EE7692B6593967AC9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5D8774342849F26000679243 /* WebKit.framework */,
 				46A3A41545A58068B99DDE91 /* Pods_demo.framework */,
 			);
 			name = Frameworks;
@@ -110,6 +117,7 @@
 		9094CC7D280EF10D00ED386D /* demo */ = {
 			isa = PBXGroup;
 			children = (
+				5D8774332848EBFB00679243 /* demo.entitlements */,
 				9094CCAA280FE61D00ED386D /* cells */,
 				9094CC97280EF18B00ED386D /* storyboards */,
 				9094CC96280EF17900ED386D /* delegates */,
@@ -171,6 +179,7 @@
 		9094CCCE2810382B00ED386D /* internet */ = {
 			isa = PBXGroup;
 			children = (
+				5D8774302848DAC700679243 /* Notifications.swift */,
 				9094CC9D280EF26F00ED386D /* Request.swift */,
 				9094CCA4280EF53A00ED386D /* Album.swift */,
 				9094CCA7280EFD2E00ED386D /* Photo.swift */,
@@ -309,6 +318,7 @@
 				901648EA2812E0C50018FDE2 /* WebImageViewController.swift in Sources */,
 				9094CCA8280EFD2E00ED386D /* Photo.swift in Sources */,
 				901648E12811F9C50018FDE2 /* WebImageView.swift in Sources */,
+				5D8774312848DAC700679243 /* Notifications.swift in Sources */,
 				9094CCB6280FE95F00ED386D /* PhotoTableViewController.swift in Sources */,
 				9094CC9E280EF26F00ED386D /* Request.swift in Sources */,
 				9094CC7F280EF10D00ED386D /* AppDelegate.swift in Sources */,
@@ -392,7 +402,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -447,7 +457,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -463,10 +473,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = demo/demo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GFNHY6W4RV;
 				INFOPLIST_FILE = demo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -484,10 +495,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = demo/demo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GFNHY6W4RV;
 				INFOPLIST_FILE = demo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

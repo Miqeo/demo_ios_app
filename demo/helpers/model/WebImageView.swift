@@ -14,12 +14,11 @@ class WebImageView : UIViewController {
     var alert : Alert? = nil
     
     func loadImageWeb(completionSuccess : (URLRequest) -> (), completionFailure : (String) -> ()){//check if url is correct
-        if let url = imageUrl{
-            completionSuccess(URLRequest(url: url))
-        }
-        else{
+        guard let url = imageUrl else {
             completionFailure("Niepoprawny link")
+            return
         }
+        completionSuccess(URLRequest(url: url))
     }
     
     
