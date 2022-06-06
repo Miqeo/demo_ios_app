@@ -28,9 +28,8 @@ class PhotoTableViewController: PhotoTableView {//class responsible for look of 
         
         alert = Alert(view: self as UIViewController)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onReceiveData(_:)), name: Notification.Name("ReceiveData"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onReceivePosition(_:)), name: Notification.Name("ReceivePosition"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onReceiveData(_:)), name: Notification.Name("ReceiveData"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onReceivePosition(_:)), name: NSNotification.Name(rawValue: "ReceivePosition"), object: nil)
         
         setupRecurse()
     }

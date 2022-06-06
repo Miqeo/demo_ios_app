@@ -31,6 +31,19 @@
 		9094CCC8280FFB5200ED386D /* PhotoViewCellRight.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9094CCC6280FFB5200ED386D /* PhotoViewCellRight.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5DFF24FE284DF96F00B32C7C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		46A3A41545A58068B99DDE91 /* Pods_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D8774302848DAC700679243 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
@@ -215,6 +228,7 @@
 				9094CC78280EF10D00ED386D /* Frameworks */,
 				9094CC79280EF10D00ED386D /* Resources */,
 				A160471C91EDB6C23B834578 /* [CP] Embed Pods Frameworks */,
+				5DFF24FE284DF96F00B32C7C /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -231,7 +245,7 @@
 		9094CC73280EF10D00ED386D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					9094CC7A280EF10D00ED386D = {
@@ -479,6 +493,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 778230EE47650F8D8F651B89 /* Pods-demo.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = demo/demo.entitlements;
@@ -501,6 +516,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F4C4F9F99F910A6C569876C9 /* Pods-demo.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = demo/demo.entitlements;

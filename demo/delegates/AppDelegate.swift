@@ -17,18 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        notificationHandler.registerPushNotifications(launchOptions: launchOptions)
-//        NotificationHandler.sharedInstance.registerPushNotifications(launchOptions: launchOptions)
-        
-//        let notificationOption = launchOptions?[.remoteNotification]
-//
-//        if let notification = notificationOption as? [String : AnyObject], let aps = notification["aps"] as? [String : AnyObject] {
-//
-//            print("launched from notification")
-//
-//            print(aps)
-////            (window?.rootViewController as? PhotoTableViewController)?.tableView.selectRow(at: IndexPath(row: 20, section: 5), animated: true, scrollPosition: .middle)
-//        }
+        NotificationHandler.sharedInstance.registerPushNotifications(launchOptions: launchOptions)
         
         return true
     }
