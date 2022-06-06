@@ -1,0 +1,2 @@
+xcrun simctl push 197E69B4-F1CC-4EBD-84CB-5D5FB613BD79 com.michalh.demo notif_all.apns
+			device identifier 		bundle identifier   name of json file

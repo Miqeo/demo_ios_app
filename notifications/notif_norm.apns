@@ -1,0 +1,8 @@
+{
+  "aps": {
+    "alert": "Notification alert",
+    "sound": "default",
+    "link_url": "https://wp.pl",
+    "VC": "c1"
+  }
+}

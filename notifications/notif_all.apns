@@ -1,0 +1,12 @@
+{
+  "aps": {
+    "alert": "Notif all data",
+    "sound": "default",
+    "content-available":0,
+    "apns-priority":10,
+    "badge":0,
+    "link_url": "https://wp.pl",
+    "row":3,"sec":4,
+    "VC": "c0"
+  }
+}
