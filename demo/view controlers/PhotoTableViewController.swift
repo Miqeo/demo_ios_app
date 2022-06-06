@@ -45,14 +45,13 @@ class PhotoTableViewController: PhotoTableView {//class responsible for look of 
         print("aktualizacja danych")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.setupRecurse()
-            
         }
         
     }
     
     @objc func onReceivePosition(_ notification:Notification) {
         
-        
+        print("pozycja zmiana")
         if let indexPath = notification.object as? IndexPath {
             print("pozycja \(indexPath)")
             self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
