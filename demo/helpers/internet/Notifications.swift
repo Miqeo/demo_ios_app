@@ -8,17 +8,32 @@
 import UIKit
 import UserNotifications
 
-class NotificationHandler : NSObject, UNUserNotificationCenterDelegate {
+import FirebaseCore
+import FirebaseMessaging
+
+class NotificationHandler : NSObject, UNUserNotificationCenterDelegate, MessagingDelegate {
     
     
-    static let sharedInstance = NotificationHandler()
+    let gcmMessageIDKey = "gcm.message_id"
     
     override init(){
         super.init()
+        
+        if FirebaseApp.app() == nil {
+            FirebaseApp.configure()
+        }
+//        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
     }
     
+    static let sharedInstance = NotificationHandler()
+    
     func registerPushNotifications(launchOptions : [UIApplication.LaunchOptionsKey: Any]?) {//register for remote notifications when authorised
+        
+        Messaging.messaging().subscribe(toTopic: "nothx") { error in
+          print("Subscribed to nothx topic")
+        }
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { [weak self] granted, _ in
             print("notification permission : \(granted)")
@@ -77,8 +92,23 @@ class NotificationHandler : NSObject, UNUserNotificationCenterDelegate {
         return .newData
     }
     
-//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-//    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        // [START_EXCLUDE]
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+          print("Message ID: \(messageID)")
+        }
+        // [END_EXCLUDE]
+        // Print full message.
+        print(userInfo)
+
+        // Change this to your preferred presentation option
+        completionHandler([[.alert, .sound]])
+    }
     
     //used for normal push notifications (while app is inactive or in background)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -86,6 +116,10 @@ class NotificationHandler : NSObject, UNUserNotificationCenterDelegate {
         guard let aps = response.notification.request.content.userInfo["aps"] as? [String : AnyObject] else {
             completionHandler()
             return
+        }
+        
+        if let messageID = aps[gcmMessageIDKey] {
+            print("Message ID: \(messageID)")
         }
 
         print(aps)
@@ -100,6 +134,29 @@ class NotificationHandler : NSObject, UNUserNotificationCenterDelegate {
         _ = goToSaidViewController(aps: aps)
         completionHandler()
 
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase registration token: \(String(describing: fcmToken))")
+
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(
+          name: Notification.Name("FCMToken"),
+          object: nil,
+          userInfo: dataDict
+        )
+        
+        Messaging.messaging().token { token, error in
+          if let error = error {
+            print("Error fetching FCM registration token: \(error)")
+          } else if let token = token {
+            print("FCM registration token: \(token)")
+            print("Remote FCM registration token: \(token)")
+          }
+        }
+
+        // TODO: If necessary send token to application server.
+        // Note: This callback is fired at each app startup and whenever a new token is generated.
     }
     
 }
@@ -140,6 +197,9 @@ extension AppDelegate{
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {//to debug, getting device token
         let tokenParts = deviceToken.map{data in String(format: "%02.2hhx", data)}
         let token = tokenParts.joined()
+        
+        Messaging.messaging().apnsToken = deviceToken;
+
 
         print("token granted \(token)")
 
