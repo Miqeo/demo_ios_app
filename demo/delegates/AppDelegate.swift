@@ -6,19 +6,30 @@
 //
 
 import UIKit
-
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    
+
     var window: UIWindow?
     
-    var notificationHandler = NotificationHandler()
+    var delegate: SilentPushNotificationService?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        notificationHandler = NotificationHandler()
-        NotificationHandler.sharedInstance.registerPushNotifications(launchOptions: launchOptions)
+        if FirebaseApp.app() == nil {
+            FirebaseApp.configure()
+        }
+        
+        delegate = SilentPushNotificationServiceImpl()
+        
+        guard delegate?.registerPushNotifications(launchOptions: launchOptions) != nil else {
+            print("failed to register to push notifications")
+            return true
+        }
+        
         
         return true
     }
